@@ -1,6 +1,15 @@
 
+import { 
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { GraduationCap, Users, Award } from "lucide-react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import TeamMember from "@/components/TeamMember";
+import { teamMembers } from "@/data/teamMembers";
 
 const About = () => {
   return (
@@ -46,6 +55,24 @@ const About = () => {
               Integrity, collaboration, and dedication to student success guide everything we do.
             </CardContent>
           </Card>
+        </div>
+
+        <h2 className="text-3xl font-montserrat font-bold text-center mb-8 text-gold">
+          Meet Our Team
+        </h2>
+        
+        <div className="relative px-12">
+          <Carousel opts={{ align: "start" }} className="w-full">
+            <CarouselContent className="-ml-4">
+              {teamMembers.map((member, index) => (
+                <CarouselItem key={index} className="pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
+                  <TeamMember {...member} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
         </div>
       </div>
     </div>
