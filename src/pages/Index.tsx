@@ -1,4 +1,3 @@
-
 import { DiscIcon, InstagramIcon, BookIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -17,26 +16,25 @@ const Index = () => {
           <p className="font-opensans text-lg text-gray-700 max-w-2xl mx-auto mb-12 animate-fade-in">
             We are a group of university students passionate about helping others succeed in their admissions journeys.
           </p>
-          <div className="flex flex-wrap justify-center gap-4 animate-fade-in">
-            <SocialButton
-              href="https://discord.gg/your-invite-link"
-              icon={<DiscIcon className="mr-2" />}
-              text="Join Discord"
-            />
-            <SocialButton
-              href="https://instagram.com/your-instagram"
-              icon={<InstagramIcon className="mr-2" />}
-              text="Follow Instagram"
-            />
-            <SocialButton
-              href="https://medium.com/your-publication"
-              icon={<BookIcon className="mr-2" />}
-              text="Read on Medium"
-            />
-          </div>
-        </div>
-      </section>
-
+      
+      <div className="flex flex-wrap justify-center gap-4 animate-fade-in">
+        <SocialButton
+          href="https://discord.gg/your-invite-link"
+          icon={<DiscIcon className="mr-2" />}
+          text="Join Discord"
+        />
+        <SocialButton
+          href="https://instagram.com/your-instagram"
+          icon={<InstagramIcon className="mr-2" />}
+          text="Follow Instagram"
+        />
+        <SocialButton
+          href="https://medium.com/your-publication"
+          icon={<BookIcon className="mr-2" />}
+          text="Read on Medium"
+        />
+      </div>
+      
       {/* Features Section */}
       <section className="py-16">
         <div className="container mx-auto px-4">
