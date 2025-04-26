@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -9,15 +8,34 @@ const Navbar = () => {
     <nav className="bg-white shadow-md fixed w-full z-50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          <Link to="/" className="font-montserrat font-bold text-xl text-black hover:text-gold transition-colors">
-            Uni'D
+          <Link to="/" className="flex items-center space-x-2 group">
+            <img 
+              src="/favicon.ico"
+              alt="Uni'D Logo" 
+              className="h-10 w-10 rounded-full object-cover transition-transform group-hover:scale-105" 
+            />
+            <span className="font-montserrat font-bold text-xl text-black group-hover:text-gold transition-colors">
+              Uni'D
+            </span>
           </Link>
           
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex space-x-8 items-center">
             <NavLink to="/">Home</NavLink>
             <NavLink to="/about">About</NavLink>
             <NavLink to="/services">Services</NavLink>
             <NavLink to="/ask">Ask Anonymously</NavLink>
+            <a 
+              href="https://discord.gg/unid" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="group flex items-center"
+            >
+              <img 
+                src="/discord-logo.svg" 
+                alt="Discord" 
+                className="h-6 w-6 transition-transform group-hover:scale-110" 
+              />
+            </a>
           </div>
 
           <button
@@ -52,6 +70,21 @@ const Navbar = () => {
             <MobileNavLink to="/about" onClick={() => setIsOpen(false)}>About</MobileNavLink>
             <MobileNavLink to="/services" onClick={() => setIsOpen(false)}>Services</MobileNavLink>
             <MobileNavLink to="/ask" onClick={() => setIsOpen(false)}>Ask Anonymously</MobileNavLink>
+            <div className="px-4 py-2">
+              <a 
+                href="https://discord.gg/unid" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="flex items-center space-x-2 text-black hover:text-gold transition-colors"
+              >
+                <img 
+                  src="/discord-logo.svg" 
+                  alt="Discord" 
+                  className="h-5 w-5" 
+                />
+                <span className="font-opensans">Join Discord</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
