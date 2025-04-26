@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { Discord, Instagram, Book } from "lucide-react";
+import { DiscIcon, InstagramIcon, BookIcon } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -26,14 +26,14 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="font-montserrat font-bold">Connect With Us</h4>
             <div className="flex space-x-4">
-              <a href="#discord" className="text-white hover:text-gold transition-colors">
-                <Discord size={24} />
+              <a href="https://discord.gg/your-invite-link" className="text-white hover:text-gold transition-colors">
+                <DiscIcon size={24} />
               </a>
-              <a href="#instagram" className="text-white hover:text-gold transition-colors">
-                <Instagram size={24} />
+              <a href="https://instagram.com/your-instagram" className="text-white hover:text-gold transition-colors">
+                <InstagramIcon size={24} />
               </a>
-              <a href="#medium" className="text-white hover:text-gold transition-colors">
-                <Book size={24} />
+              <a href="https://medium.com/your-publication" className="text-white hover:text-gold transition-colors">
+                <BookIcon size={24} />
               </a>
             </div>
           </div>
