@@ -1,5 +1,5 @@
 
-import { DiscIcon, InstagramIcon, BookIcon, Linkedin} from "lucide-react";
+import { DiscIcon, InstagramIcon, BookIcon, Linkedin, Discord} from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Index = () => {
@@ -21,7 +21,7 @@ const Index = () => {
           <div className="flex flex-wrap justify-center gap-4 animate-fade-in">
             <SocialButton
               href="https://discord.gg/as4APmagn6"
-              icon={<DiscIcon className="mr-2" />}
+              icon={<Discord className="mr-2" />}
               text="Join our Discord"
             />
             <SocialButton

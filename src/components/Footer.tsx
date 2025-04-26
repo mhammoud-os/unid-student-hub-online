@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { DiscIcon, InstagramIcon, BookIcon } from "lucide-react";
+import { DiscIcon, InstagramIcon, BookIcon, Linkedin, Discord  } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -26,14 +26,17 @@ const Footer = () => {
         <div className="space-y-4">
           <h4 className="font-montserrat font-bold">Connect With Us</h4>
           <div className="flex space-x-4">
-            <a href="https://discord.gg/your-invite-link" className="text-white hover:text-gold transition-colors">
-              <DiscIcon size={24} />
+            <a href="https://discord.gg/as4APmagn6" className="text-white hover:text-gold transition-colors">
+              <Discord size={24} />
             </a>
-            <a href="https://instagram.com/your-instagram" className="text-white hover:text-gold transition-colors">
+            <a href="https://www.instagram.com/uni.d_/" className="text-white hover:text-gold transition-colors">
               <InstagramIcon size={24} />
             </a>
-            <a href="https://medium.com/your-publication" className="text-white hover:text-gold transition-colors">
+            <a href="https://medium.com/@unidadmissions" className="text-white hover:text-gold transition-colors">
               <BookIcon size={24} />
+            </a>
+            <a href="https://www.linkedin.com/company/unid-admissions/" className="text-white hover:text-gold transition-colors">
+              <Linkedin size={24} />
             </a>
           </div>
         </div>
