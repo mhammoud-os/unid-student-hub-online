@@ -24,18 +24,6 @@ const Navbar = () => {
             <NavLink to="/about">About</NavLink>
             <NavLink to="/services">Services</NavLink>
             <NavLink to="/ask">Ask Anonymously</NavLink>
-            <a 
-              href="https://discord.gg/unid" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="group flex items-center"
-            >
-              <img 
-                src="/discord-logo.svg" 
-                alt="Discord" 
-                className="h-6 w-6 transition-transform group-hover:scale-110" 
-              />
-            </a>
           </div>
 
           <button
