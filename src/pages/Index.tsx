@@ -1,5 +1,5 @@
 
-import { DiscIcon, InstagramIcon, BookIcon } from "lucide-react";
+import { DiscIcon, InstagramIcon, BookIcon, Linkedin} from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Index = () => {
@@ -20,19 +20,24 @@ const Index = () => {
           
           <div className="flex flex-wrap justify-center gap-4 animate-fade-in">
             <SocialButton
-              href="https://discord.gg/your-invite-link"
+              href="https://discord.gg/as4APmagn6"
               icon={<DiscIcon className="mr-2" />}
-              text="Join Discord"
+              text="Join our Discord"
             />
             <SocialButton
-              href="https://instagram.com/your-instagram"
+              href="https://www.instagram.com/uni.d_/"
               icon={<InstagramIcon className="mr-2" />}
-              text="Follow Instagram"
+              text="Follow on Instagram"
             />
             <SocialButton
-              href="https://medium.com/your-publication"
+              href="https://medium.com/@unidadmissions"
               icon={<BookIcon className="mr-2" />}
               text="Read on Medium"
+            />
+            <SocialButton
+                href="https://www.linkedin.com/company/unid-admissions/"
+                icon={<Linkedin className="mr-2" />}
+                text="Follow on LinkedIn"
             />
           </div>
         </div>
