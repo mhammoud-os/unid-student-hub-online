@@ -6,12 +6,38 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { GraduationCap, Users, Award, ScrollArea } from "lucide-react";
+import { GraduationCap, Users, Award } from "lucide-react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import TeamMember from "@/components/TeamMember";
 import { teamMembers } from "@/data/teamMembers";
+import { useEffect, useRef, useState } from "react";
 
 const About = () => {
+  const [isPaused, setIsPaused] = useState(false);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const carousel = carouselRef.current;
+    
+    const startAutoPlay = () => {
+      if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+      
+      autoPlayRef.current = setInterval(() => {
+        const nextButton = carousel?.querySelector('[data-carousel-next]');
+        if (nextButton && !isPaused) {
+          (nextButton as HTMLButtonElement).click();
+        }
+      }, isPaused ? 10000 : 3000); // Slower when paused
+    };
+
+    startAutoPlay();
+
+    return () => {
+      if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+    };
+  }, [isPaused]);
+
   return (
     <div className="min-h-screen bg-black text-white py-24">
       <div className="container mx-auto px-4">
@@ -61,9 +87,17 @@ const About = () => {
           Meet Our Team
         </h2>
         
-        <div className="relative px-12">
+        <div 
+          className="relative px-12" 
+          ref={carouselRef}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
           <Carousel 
-            opts={{ align: "start" }} 
+            opts={{ 
+              align: "start",
+              loop: true
+            }} 
             className="w-full"
           >
             <CarouselContent className="-ml-4">
@@ -73,8 +107,14 @@ const About = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="border-gold/30 text-gold hover:bg-gold/10 hover:text-white" />
-            <CarouselNext className="border-gold/30 text-gold hover:bg-gold/10 hover:text-white" />
+            <CarouselPrevious 
+              className="border-gold/30 text-gold hover:bg-gold/10 hover:text-white" 
+              data-carousel-prev
+            />
+            <CarouselNext 
+              className="border-gold/30 text-gold hover:bg-gold/10 hover:text-white" 
+              data-carousel-next
+            />
           </Carousel>
         </div>
       </div>
