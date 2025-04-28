@@ -51,7 +51,7 @@ const Services = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white py-12">
+    <div className="min-h-screen bg-black text-white py-12 pt-24">
       <div className="container mx-auto px-4">
         <h1 className="text-4xl md:text-5xl font-montserrat font-bold text-center mb-12 text-gold">
           Our Services
@@ -221,3 +221,4 @@ const services: Service[] = [
 ];
 
 export default Services;
+
