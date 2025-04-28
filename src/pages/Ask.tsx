@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -24,9 +23,20 @@ const Ask = () => {
         <div className="bg-gray-900 p-6 rounded-lg border border-gold/20 mb-8">
           <div className="flex items-start gap-3 mb-4 text-gray-300">
             <Info className="w-5 h-5 mt-1 text-gold" />
-            <p>
-              Feel free to ask any questions about university admissions, student life, or academic guidance. Your identity will remain anonymous.
-            </p>
+            <div>
+              <p className="mb-2">
+                Feel free to ask any questions about university admissions, student life, or academic guidance. Your identity will remain anonymous.
+              </p>
+              <p>
+                You can also reach us directly at{" "}
+                <a 
+                  href="mailto:unidadmissions@gmail.com" 
+                  className="text-gold hover:underline transition-colors"
+                >
+                  unidadmissions@gmail.com
+                </a>
+              </p>
+            </div>
           </div>
         </div>
 
