@@ -22,7 +22,7 @@ const TeamMember = ({ name, handle, university, program, appliedTo, extra, linke
     .toUpperCase();
 
   return (
-    <HoverCard openDelay={100} closeDelay={200}>
+    <HoverCard>
       <HoverCardTrigger asChild>
         <div className="cursor-pointer">
           <Card className="bg-gray-900 border-gold/20 w-[300px] h-[250px] flex flex-col">

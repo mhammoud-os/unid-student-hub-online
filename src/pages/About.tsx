@@ -1,4 +1,3 @@
-
 import { 
   Carousel,
   CarouselContent,
@@ -28,7 +27,7 @@ const About = () => {
         if (nextButton && !isPaused) {
           (nextButton as HTMLButtonElement).click();
         }
-      }, isPaused ? 10000 : 3000); // Slower when paused
+      }, isPaused ? 5000 : 3000); // Slower when paused
     };
 
     startAutoPlay();
