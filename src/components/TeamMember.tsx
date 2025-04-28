@@ -1,8 +1,7 @@
-
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Linkedin } from "lucide-react";
-import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
+import { Linkedin, FileText } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface TeamMemberProps {
   name: string;
@@ -12,9 +11,21 @@ interface TeamMemberProps {
   appliedTo: string[];
   extra: string;
   linkedin?: string;
+  cv?: string;
+  isFocused: boolean;
 }
 
-const TeamMember = ({ name, handle, university, program, appliedTo, extra, linkedin }: TeamMemberProps) => {
+const TeamMember = ({ 
+  name, 
+  handle, 
+  university, 
+  program, 
+  appliedTo, 
+  extra, 
+  linkedin, 
+  cv,
+  isFocused 
+}: TeamMemberProps) => {
   const initials = name
     .split(' ')
     .map(n => n[0])
@@ -22,50 +33,80 @@ const TeamMember = ({ name, handle, university, program, appliedTo, extra, linke
     .toUpperCase();
 
   return (
-    <HoverCard>
-      <HoverCardTrigger asChild>
-        <Card className="bg-gray-900 border-gold/20 w-[300px] h-[250px] flex flex-col cursor-pointer">
-          <CardContent className="pt-6 pb-2 flex flex-col items-center">
-            <Avatar className="h-20 w-20 mb-3 border-2 border-gold/50">
+    <motion.div
+      animate={{
+        scale: isFocused ? 1 : 0.9,
+        opacity: isFocused ? 1 : 0.7
+      }}
+      transition={{ 
+        duration: 0.3,
+        ease: "easeInOut"
+      }}
+      className={`transition-all duration-300 ${isFocused ? 'z-10' : 'z-0'}`}
+    >
+      <Card className="bg-gray-900 border-gold/20 overflow-hidden">
+        <div className={`transition-all duration-300 ease-in-out ${isFocused ? 'h-420 w-350' : 'h-200 w-250'}`}>
+          <CardContent className="pt-6 pb-2 flex flex-col items-center justify-center w-full text-center h-full">
+            <Avatar className={`border-2 border-gold/50 transition-all duration-300 ${isFocused ? 'h-24 w-24 mb-4' : 'h-16 w-16 mb-2'}`}>
               <AvatarFallback className="bg-gray-800 text-gold font-semibold">{initials}</AvatarFallback>
               <AvatarImage src="/placeholder.svg" alt={name} />
             </Avatar>
-            <h3 className="text-xl font-montserrat font-semibold text-gold text-center">{name}</h3>
-            <p className="text-gray-400 text-sm">{handle}</p>
+            
+            <h3 className={`font-montserrat font-semibold text-gold text-center w-full transition-all duration-300 ${isFocused ? 'text-2xl mb-2' : 'text-lg'}`}>
+              {name}
+            </h3>
+            
+            {isFocused && (
+              <div className="w-full space-y-4 mt-3 px-2 flex flex-col items-center">
+                <div className="space-y-1 text-center w-full">
+                  <p className="text-gray-400 text-sm">{handle}</p>
+                  <p className="text-gray-300">{university}</p>
+                  <p className="text-gray-300">{program}</p>
+                </div>
+                
+                <div className="space-y-1 text-center w-full">
+                  <h4 className="text-gold/80 font-semibold text-sm">Accepted to:</h4>
+                  <div className="text-gray-300 text-sm">
+                    {appliedTo.join(", ")}
+                  </div>
+                </div>
+                
+                <div className="space-y-1 text-center w-full">
+                  <h4 className="text-gold/80 font-semibold text-sm">Fun Fact:</h4>
+                  <p className="text-gray-300 text-sm italic">{extra}</p>
+                </div>
+                
+                <div className="flex gap-2 mt-4 justify-center w-full">
+                  {linkedin && (
+                    <a 
+                      href={linkedin} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-1 bg-gray-800 hover:bg-gray-700 text-white transition-colors py-1.5 px-3 rounded-md"
+                    >
+                      <Linkedin className="h-4 w-4" />
+                      <span className="text-xs">LinkedIn</span>
+                    </a>
+                  )}
+                  
+                  {cv && (
+                    <a 
+                      href={cv} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-1 bg-gray-800 hover:bg-gray-700 text-white transition-colors py-1.5 px-3 rounded-md"
+                    >
+                      <FileText className="h-4 w-4" />
+                      <span className="text-xs">CV</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+            )}
           </CardContent>
-        </Card>
-      </HoverCardTrigger>
-      <HoverCardContent side="bottom" align="center" className="w-[350px] bg-gray-900 border-gold/20 text-white z-50">
-        <div className="space-y-4">
-          <div>
-            <h4 className="text-gold/80 font-semibold mb-1">Program</h4>
-            <p className="text-gray-300">{university}</p>
-            <p className="text-gray-300">{program}</p>
-          </div>
-          <div>
-            <h4 className="text-gold/80 font-semibold mb-1">Accepted to</h4>
-            <div className="text-gray-300 text-sm">
-              {appliedTo.join(", ")}
-            </div>
-          </div>
-          <div>
-            <h4 className="text-gold/80 font-semibold mb-1">Fun Fact</h4>
-            <p className="text-gray-300 text-sm italic">{extra}</p>
-          </div>
-          {linkedin && (
-            <a 
-              href={linkedin} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 text-white transition-colors py-2 px-4 rounded-md"
-            >
-              <Linkedin className="h-4 w-4" />
-              <span className="text-sm">LinkedIn</span>
-            </a>
-          )}
         </div>
-      </HoverCardContent>
-    </HoverCard>
+      </Card>
+    </motion.div>
   );
 };
 

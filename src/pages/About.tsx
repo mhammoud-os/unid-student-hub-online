@@ -1,41 +1,64 @@
-import { 
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import { GraduationCap, Users, Award } from "lucide-react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import TeamMember from "@/components/TeamMember";
 import { teamMembers } from "@/data/teamMembers";
 import { useEffect, useRef, useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
 
 const About = () => {
   const [isPaused, setIsPaused] = useState(false);
-  const carouselRef = useRef<HTMLDivElement>(null);
+  const [focusedIndex, setFocusedIndex] = useState(0);
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    align: "center",
+    skipSnaps: false,
+  });
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const carousel = carouselRef.current;
+    if (!emblaApi) return;
+
+    const onSelect = () => {
+      setFocusedIndex(emblaApi.selectedScrollSnap());
+    };
+
+    emblaApi.on('select', onSelect);
+    onSelect();
+
+    return () => {
+      emblaApi.off('select', onSelect);
+    };
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
     
     const startAutoPlay = () => {
       if (autoPlayRef.current) clearInterval(autoPlayRef.current);
       
       autoPlayRef.current = setInterval(() => {
-        const nextButton = carousel?.querySelector('[data-carousel-next]');
-        if (nextButton && !isPaused) {
-          (nextButton as HTMLButtonElement).click();
+        if (!isPaused && emblaApi.canScrollNext()) {
+          emblaApi.scrollNext();
         }
-      }, isPaused ? 5000 : 3000); // Slower when paused
+      }, 3000);
     };
 
     startAutoPlay();
 
+    emblaApi.on('pointerDown', () => {
+      if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+    });
+    
+    emblaApi.on('pointerUp', () => {
+      startAutoPlay();
+    });
+
     return () => {
       if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+      emblaApi.off('pointerDown');
+      emblaApi.off('pointerUp');
     };
-  }, [isPaused]);
+  }, [emblaApi, isPaused]);
 
   return (
     <div className="min-h-screen bg-black text-white py-24">
@@ -87,34 +110,41 @@ const About = () => {
         </h2>
         
         <div 
-          className="relative px-12" 
-          ref={carouselRef}
+          className="relative px-4 sm:px-12 max-w-5xl mx-auto" 
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          <Carousel 
-            opts={{ 
-              align: "start",
-              loop: true
-            }} 
-            className="w-full"
-          >
-            <CarouselContent className="-ml-4">
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex py-12">
               {teamMembers.map((member, index) => (
-                <CarouselItem key={index} className="pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
-                  <TeamMember {...member} />
-                </CarouselItem>
+                <div key={index} className="flex-grow-0 flex-shrink-0 basis-full sm:basis-1/2 md:basis-1/3 px-4">
+                  <TeamMember 
+                    {...member} 
+                    isFocused={index === focusedIndex} 
+                  />
+                </div>
               ))}
-            </CarouselContent>
-            <CarouselPrevious 
-              className="border-gold/30 text-gold hover:bg-gold/10 hover:text-white" 
-              data-carousel-prev
-            />
-            <CarouselNext 
-              className="border-gold/30 text-gold hover:bg-gold/10 hover:text-white" 
-              data-carousel-next
-            />
-          </Carousel>
+            </div>
+          </div>
+
+          <button 
+            onClick={() => emblaApi?.scrollPrev()}
+            className="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-900/80 border border-gold/30 rounded-full p-2 text-gold hover:bg-gold/10 hover:text-white transition-all duration-300"
+            aria-label="Previous slide"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-left">
+              <path d="m15 18-6-6 6-6"/>
+            </svg>
+          </button>
+          <button 
+            onClick={() => emblaApi?.scrollNext()}
+            className="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-900/80 border border-gold/30 rounded-full p-2 text-gold hover:bg-gold/10 hover:text-white transition-all duration-300"
+            aria-label="Next slide"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-right">
+              <path d="m9 18 6-6-6-6"/>
+            </svg>
+          </button>
         </div>
       </div>
     </div>
