@@ -93,7 +93,6 @@ const About = () => {
               To empower students with the knowledge and support they need to achieve their academic goals.
             </CardContent>
           </Card>
-
           <Card className="bg-gray-900 border-gold/20">
             <CardHeader>
               <Award className="w-12 h-12 mb-4 text-gold" />
