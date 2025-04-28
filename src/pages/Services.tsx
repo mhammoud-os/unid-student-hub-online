@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 interface Service {
   title: string;
   description: string;
-  expandedDescription: string;
   icon: JSX.Element;
 }
 
@@ -105,8 +104,8 @@ const Services = () => {
             <h2 className="text-2xl font-montserrat font-bold text-gold mb-4">
               {services[activeCardIndex].title}
             </h2>
-            <p className="text-gray-300">
-              {services[activeCardIndex].expandedDescription}
+            <p className="text-gray-300 text-sm">
+              {services[activeCardIndex].description}
             </p>
           </div>
         </div>
@@ -183,18 +182,6 @@ const ServiceCard = ({
         <h3 className="text-center text-xs md:text-sm font-montserrat font-semibold text-gold line-clamp-2">
           {service.title}
         </h3>
-        
-        {isActive && !isMobile && (
-          <p className="text-xs text-gray-300 text-center line-clamp-1 mt-1 opacity-80">
-            {service.description}
-          </p>
-        )}
-
-        {isActive && isMobile && (
-          <div className="absolute bottom-1 right-1 text-gold/50">
-            <ChevronDown className="w-3 h-3" />
-          </div>
-        )}
       </div>
     </div>
   );
@@ -203,38 +190,32 @@ const ServiceCard = ({
 const services: Service[] = [
   {
     title: "Peer Mentoring",
-    description: "Connect with experienced students who have successfully navigated the admissions process.",
-    expandedDescription: "Our mentors provide personalized guidance based on their own experiences with university applications, helping you avoid common pitfalls and maximize your chances of success.",
+    description: "Connect with experienced students who have successfully navigated the admissions process. Our mentors provide personalized guidance based on their own experiences with university applications, helping you avoid common pitfalls and maximize your chances of success.",
     icon: <Users className="w-8 h-8" />,
   },
   {
     title: "Study Resources",
-    description: "Access our curated collection of study materials, guides, and practice tests.",
-    expandedDescription: "We offer comprehensive resources for standardized tests, subject-specific study guides, and application preparation materials to help you excel academically.",
+    description: "Access our curated collection of study materials, guides, and practice tests. We offer comprehensive resources for standardized tests, subject-specific study guides, and application preparation materials to help you excel academically.",
     icon: <Book className="w-8 h-8" />,
   },
   {
     title: "Application Guidance",
-    description: "Get personalized advice on your university applications and essays.",
-    expandedDescription: "Our experts provide feedback on personal statements, application strategies, and interview preparation to help you present your best self to admissions committees.",
+    description: "Get personalized advice on your university applications and essays. Our experts provide feedback on personal statements, application strategies, and interview preparation to help you present your best self to admissions committees.",
     icon: <GraduationCap className="w-8 h-8" />,
   },
   {
     title: "Chat with a Mentor",
-    description: "Ask questions anonymously or directly in our Discord community for on-demand support.",
-    expandedDescription: "Join our Discord to have on-demand answers to your burning questions about university admissions. Prefer privacy? Ask via our website anonymously for a response within 2-7 business days, straight to your email.",
+    description: "Ask questions anonymously or directly in our Discord community for on-demand support. Join our Discord to have on-demand answers to your burning questions about university admissions. Prefer privacy? Ask via our website anonymously for a response within 2-7 business days, straight to your email.",
     icon: <MessageCircle className="w-8 h-8" />,
   },
   {
     title: "Course Help",
-    description: "Get assistance with higher-level high school courses in math, sciences, computer science, and business.",
-    expandedDescription: "We offer targeted help for challenging high school courses including mathematics, biology, chemistry, physics, computer science, and business-related subjects. Join our Discord for immediate assistance or submit questions through our website.",
+    description: "Get assistance with higher-level high school courses in math, sciences, computer science, and business. We offer targeted help for challenging high school courses including mathematics, biology, chemistry, physics, computer science, and business-related subjects. Join our Discord for immediate assistance or submit questions through our website.",
     icon: <LifeBuoy className="w-8 h-8" />,
   },
   {
     title: "Resource Library",
-    description: "Read our Medium blog for FAQ about extracurriculars, admissions, and student spotlights.",
-    expandedDescription: "Our regularly updated blog features comprehensive guides on building compelling extracurricular profiles, navigating the admissions process, and inspirational stories from successful students who've achieved their university goals.",
+    description: "Read our Medium blog for FAQ about extracurriculars, admissions, and student spotlights. Our regularly updated blog features comprehensive guides on building compelling extracurricular profiles, navigating the admissions process, and inspirational stories from successful students who've achieved their university goals.",
     icon: <Book className="w-8 h-8" />,
   },
 ];
