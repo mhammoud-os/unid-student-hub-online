@@ -17,7 +17,6 @@ interface ServiceCardProps {
   isMobile: boolean;
   onClick: () => void;
 }
-
 const Services = () => {
   const [activeCardIndex, setActiveCardIndex] = useState<number>(0);
   const [isMobile, setIsMobile] = useState<boolean>(false);
