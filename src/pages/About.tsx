@@ -6,7 +6,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { GraduationCap, Users, Award } from "lucide-react";
+import { GraduationCap, Users, Award, ScrollArea } from "lucide-react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import TeamMember from "@/components/TeamMember";
 import { teamMembers } from "@/data/teamMembers";
@@ -62,7 +62,10 @@ const About = () => {
         </h2>
         
         <div className="relative px-12">
-          <Carousel opts={{ align: "start" }} className="w-full">
+          <Carousel 
+            opts={{ align: "start" }} 
+            className="w-full"
+          >
             <CarouselContent className="-ml-4">
               {teamMembers.map((member, index) => (
                 <CarouselItem key={index} className="pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
@@ -70,8 +73,8 @@ const About = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <CarouselPrevious className="border-gold/30 text-gold hover:bg-gold/10 hover:text-white" />
+            <CarouselNext className="border-gold/30 text-gold hover:bg-gold/10 hover:text-white" />
           </Carousel>
         </div>
       </div>

@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -5,7 +6,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-white shadow-md fixed w-full z-50">
+    <nav className="bg-gray-900 shadow-md fixed w-full z-50 border-b border-gold/20">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2 group">
@@ -14,7 +15,7 @@ const Navbar = () => {
               alt="Uni'D Logo" 
               className="h-10 w-10 rounded-full object-cover transition-transform group-hover:scale-105" 
             />
-            <span className="font-montserrat font-bold text-xl text-black group-hover:text-gold transition-colors">
+            <span className="font-montserrat font-bold text-xl text-white group-hover:text-gold transition-colors">
               Uni'D
             </span>
           </Link>
@@ -34,7 +35,7 @@ const Navbar = () => {
               {[1, 2, 3].map((bar) => (
                 <span
                   key={bar}
-                  className={`block w-6 h-0.5 bg-black transition-all duration-300 ${
+                  className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
                     isOpen && (
                       bar === 1 ? "rotate-45 translate-y-2.5" :
                       bar === 2 ? "opacity-0" :
@@ -63,7 +64,7 @@ const Navbar = () => {
                 href="https://discord.gg/unid" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex items-center space-x-2 text-black hover:text-gold transition-colors"
+                className="flex items-center space-x-2 text-gray-300 hover:text-gold transition-colors"
               >
                 <img 
                   src="/discord-logo.svg" 
@@ -83,7 +84,7 @@ const Navbar = () => {
 const NavLink = ({ to, children }: { to: string; children: React.ReactNode }) => (
   <Link
     to={to}
-    className="font-opensans text-black hover:text-gold transition-colors"
+    className="font-opensans text-gray-300 hover:text-gold transition-colors"
   >
     {children}
   </Link>
@@ -92,7 +93,7 @@ const NavLink = ({ to, children }: { to: string; children: React.ReactNode }) =>
 const MobileNavLink = ({ to, children, onClick }: { to: string; children: React.ReactNode; onClick: () => void }) => (
   <Link
     to={to}
-    className="block py-2 px-4 text-black hover:text-gold transition-colors font-opensans"
+    className="block py-2 px-4 text-gray-300 hover:text-gold transition-colors font-opensans"
     onClick={onClick}
   >
     {children}
