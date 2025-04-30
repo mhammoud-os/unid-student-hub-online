@@ -1,14 +1,52 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Info, Loader2 } from "lucide-react";
+import { Info, Loader2, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+
+const COOLDOWN_PERIOD_MS = 60 * 60 * 1000; // 1 hour in milliseconds
 
 const Ask = () => {
   const [question, setQuestion] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
   const { toast } = useToast();
+  
+  // Check if user is in cooldown period on component mount
+  useEffect(() => {
+    checkCooldownStatus();
+    
+    // Set up interval to update countdown timer
+    const interval = setInterval(() => {
+      checkCooldownStatus();
+    }, 1000);
+    
+    return () => clearInterval(interval);
+  }, []);
+  
+  const checkCooldownStatus = () => {
+    const lastSubmissionTime = localStorage.getItem("lastQuestionSubmission");
+    
+    if (lastSubmissionTime) {
+      const timeSinceLastSubmission = Date.now() - parseInt(lastSubmissionTime, 10);
+      
+      if (timeSinceLastSubmission < COOLDOWN_PERIOD_MS) {
+        const remainingTime = COOLDOWN_PERIOD_MS - timeSinceLastSubmission;
+        setTimeRemaining(Math.ceil(remainingTime / 1000));
+      } else {
+        setTimeRemaining(null);
+      }
+    } else {
+      setTimeRemaining(null);
+    }
+  };
+  
+  const formatTimeRemaining = (seconds: number): string => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,6 +55,16 @@ const Ask = () => {
       toast({
         title: "Empty question",
         description: "Please enter your question before submitting.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Check if user is in cooldown period
+    if (timeRemaining !== null) {
+      toast({
+        title: "Please wait",
+        description: `You can submit another question in ${formatTimeRemaining(timeRemaining)}.`,
         variant: "destructive",
       });
       return;
@@ -48,6 +96,12 @@ const Ask = () => {
       });
 
       if (response.ok) {
+        // Save the submission time to localStorage
+        localStorage.setItem("lastQuestionSubmission", Date.now().toString());
+        
+        // Update the cooldown status immediately
+        checkCooldownStatus();
+        
         toast({
           title: "Question submitted!",
           description: "Your anonymous question has been sent successfully.",
@@ -93,6 +147,13 @@ const Ask = () => {
               </p>
             </div>
           </div>
+          
+          {timeRemaining !== null && (
+            <div className="flex items-center gap-2 text-amber-500 bg-amber-500/10 p-3 rounded-md mt-2">
+              <Clock className="w-5 h-5" />
+              <p>You can submit another question in {formatTimeRemaining(timeRemaining)}</p>
+            </div>
+          )}
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -101,18 +162,20 @@ const Ask = () => {
             onChange={(e) => setQuestion(e.target.value)}
             placeholder="Type your question here..."
             className="min-h-[200px] bg-gray-900 border-gold/20 text-white placeholder:text-gray-400"
-            disabled={isSubmitting}
+            disabled={isSubmitting || timeRemaining !== null}
           />
           <Button
             type="submit"
             className="w-full bg-gold hover:bg-gold/90 text-black font-semibold py-6"
-            disabled={isSubmitting}
+            disabled={isSubmitting || timeRemaining !== null}
           >
             {isSubmitting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Submitting...
               </>
+            ) : timeRemaining !== null ? (
+              "Cooldown Period Active"
             ) : (
               "Submit Question"
             )}
