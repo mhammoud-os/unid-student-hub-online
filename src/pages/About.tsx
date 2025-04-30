@@ -55,8 +55,12 @@ const About = () => {
 
     return () => {
       if (autoPlayRef.current) clearInterval(autoPlayRef.current);
-      emblaApi.off('pointerDown');
-      emblaApi.off('pointerUp');
+      emblaApi.off('pointerDown', () => {
+        if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+      });
+      emblaApi.off('pointerUp', () => {
+        startAutoPlay();
+      });
     };
   }, [emblaApi, isPaused]);
 
