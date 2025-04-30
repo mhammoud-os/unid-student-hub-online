@@ -1,3 +1,4 @@
+
 import { GraduationCap, Users, Award } from "lucide-react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import TeamMember from "@/components/TeamMember";
@@ -45,22 +46,21 @@ const About = () => {
 
     startAutoPlay();
 
-    emblaApi.on('pointerDown', () => {
+    const handlePointerDown = () => {
       if (autoPlayRef.current) clearInterval(autoPlayRef.current);
-    });
+    };
     
-    emblaApi.on('pointerUp', () => {
+    const handlePointerUp = () => {
       startAutoPlay();
-    });
+    };
+
+    emblaApi.on('pointerDown', handlePointerDown);
+    emblaApi.on('pointerUp', handlePointerUp);
 
     return () => {
       if (autoPlayRef.current) clearInterval(autoPlayRef.current);
-      emblaApi.off('pointerDown', () => {
-        if (autoPlayRef.current) clearInterval(autoPlayRef.current);
-      });
-      emblaApi.off('pointerUp', () => {
-        startAutoPlay();
-      });
+      emblaApi.off('pointerDown', handlePointerDown);
+      emblaApi.off('pointerUp', handlePointerUp);
     };
   }, [emblaApi, isPaused]);
 
