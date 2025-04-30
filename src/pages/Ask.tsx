@@ -1,16 +1,71 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Info } from "lucide-react";
+import { Info, Loader2 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const Ask = () => {
   const [question, setQuestion] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log("Question submitted:", question);
-    setQuestion("");
+    
+    if (!question.trim()) {
+      toast({
+        title: "Empty question",
+        description: "Please enter your question before submitting.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Replace this URL with your Discord webhook URL when setting up
+      const webhookUrl = "YOUR_DISCORD_WEBHOOK_URL";
+      
+      const response = await fetch(webhookUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          // Discord webhook format
+          content: "New anonymous question received:",
+          embeds: [
+            {
+              title: "Anonymous Question",
+              description: question,
+              color: 16766720, // Gold color in decimal
+              timestamp: new Date().toISOString(),
+            },
+          ],
+        }),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Question submitted!",
+          description: "Your anonymous question has been sent successfully.",
+        });
+        setQuestion("");
+      } else {
+        throw new Error("Failed to send message to Discord");
+      }
+    } catch (error) {
+      console.error("Error submitting question:", error);
+      toast({
+        title: "Submission error",
+        description: "Unable to submit your question. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -46,12 +101,21 @@ const Ask = () => {
             onChange={(e) => setQuestion(e.target.value)}
             placeholder="Type your question here..."
             className="min-h-[200px] bg-gray-900 border-gold/20 text-white placeholder:text-gray-400"
+            disabled={isSubmitting}
           />
           <Button
             type="submit"
             className="w-full bg-gold hover:bg-gold/90 text-black font-semibold py-6"
+            disabled={isSubmitting}
           >
-            Submit Question
+            {isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Submitting...
+              </>
+            ) : (
+              "Submit Question"
+            )}
           </Button>
         </form>
       </div>
