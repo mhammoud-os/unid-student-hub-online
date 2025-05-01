@@ -11,10 +11,9 @@ const Index = () => {
             Welcome to Uni'D
           </h1>
           <p className="font-montserrat text-xl md:text-2xl text-gold/80 mb-8 animate-fade-in">
-            Student-led, community-driven.
           </p>
           <p className="font-opensans text-lg text-gray-300 max-w-2xl mx-auto mb-12 animate-fade-in">
-            We are a group of university students passionate about helping others succeed in their admissions journeys.
+            Student-led, community-driven organization helping others succeed in their academic journeys.
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 animate-fade-in">
