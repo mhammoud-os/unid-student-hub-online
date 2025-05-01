@@ -74,7 +74,7 @@ const Ask = () => {
 
     try {
       // Replace this URL with your Discord webhook URL when setting up
-      const webhookUrl = "https://discord.com/api/webhooks/1367253271500161167/J_XY1DdRUSx8QUN4lRn0d27-FnfoHH5a8Jphbyju6cWPpya63S6_yfzMRL8ts_uSMb_a";
+      const webhookUrl = "https://discord.com/api/webhooks/1287831806267228251/_MRZBUShOL4jVrvs2piQuPmQHPvhAEffF22BKzH9tVO-KzwQGELAHhw9itphG1zkwX3I";
       
       const response = await fetch(webhookUrl, {
         method: "POST",
