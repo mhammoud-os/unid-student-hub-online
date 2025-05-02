@@ -42,7 +42,7 @@ export const teamMembers = [
     program: "Computer Engineering + Robotics",
     appliedTo: ["UMich", "CMU Math", "U of Waterloo", "U of Toronto", "Western U", "Cornell U", "Georgia Tech", "U of Washington", "UCSD"],
     extra: "If u don't like sleep, u would love engineering",
-    linkedin: "https://linkedin.com/in/hanshengliu"
+    linkedin: "https://www.linkedin.com/in/hansheng-liu-3487b2284"
   },
   {
     name: "Amelia Song",
