@@ -1,3 +1,4 @@
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Linkedin, FileText } from "lucide-react";
@@ -6,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 interface TeamMemberProps {
   name: string;
   handle: string;
+  role?: string;
   university: string;
   program: string;
   appliedTo: string[];
@@ -18,6 +20,7 @@ interface TeamMemberProps {
 const TeamMember = ({ 
   name, 
   handle, 
+  role,
   university, 
   program, 
   appliedTo, 
@@ -60,16 +63,19 @@ const TeamMember = ({
               <div className="w-full space-y-4 mt-3 px-2 flex flex-col items-center">
                 <div className="space-y-1 text-center w-full">
                   <p className="text-gray-400 text-sm">{handle}</p>
+                  {role && <p className="text-gold/80 font-medium">{role}</p>}
                   <p className="text-gray-300">{university}</p>
                   <p className="text-gray-300">{program}</p>
                 </div>
                 
-                <div className="space-y-1 text-center w-full">
-                  <h4 className="text-gold/80 font-semibold text-sm">Accepted to:</h4>
-                  <div className="text-gray-300 text-sm">
-                    {appliedTo.join(", ")}
+                {appliedTo.length > 0 && (
+                  <div className="space-y-1 text-center w-full">
+                    <h4 className="text-gold/80 font-semibold text-sm">Accepted to:</h4>
+                    <div className="text-gray-300 text-sm">
+                      {appliedTo.join(", ")}
+                    </div>
                   </div>
-                </div>
+                )}
                 
                 <div className="space-y-1 text-center w-full">
                   <h4 className="text-gold/80 font-semibold text-sm">Fun Fact:</h4>
