@@ -2,7 +2,7 @@
 export const teamMembers = [
   {
     name: "Alexander Cai",
-    handle: "@Alex",
+    handle: "Alex",
     role: "Lead Mentor/Founder",
     university: "Western University",
     program: "BMOS & Ivey AEO",
@@ -12,7 +12,7 @@ export const teamMembers = [
   },
   {
     name: "Isabella Bu",
-    handle: "@Isabella",
+    handle: "Isabella",
     role: "Lead Mentor/Co-Founder",
     university: "Western University",
     program: "Medical Sciences",
@@ -22,7 +22,7 @@ export const teamMembers = [
   },
   {
     name: "Jana Dawood",
-    handle: "@Jana",
+    handle: "Jana",
     role: "Lead Mentor",
     university: "Western University",
     program: "Medical Sciences",
@@ -32,7 +32,7 @@ export const teamMembers = [
   },
   {
     name: "Soham Dhar",
-    handle: "@Soham",
+    handle: "Soham",
     role: "Mentor",
     university: "University of Toronto",
     program: "Math/Comp Sci/Stats",
@@ -42,7 +42,7 @@ export const teamMembers = [
   },
   {
     name: "Hansheng Liu",
-    handle: "@Hansheng",
+    handle: "Hansheng",
     role: "Mentor",
     university: "University of Michigan",
     program: "Computer Engineering + Robotics",
@@ -52,7 +52,7 @@ export const teamMembers = [
   },
   {
     name: "Amelia Song",
-    handle: "@Amelia",
+    handle: "Amelia",
     role: "Mentor",
     university: "University of Waterloo",
     program: "Software Engineering",
@@ -62,7 +62,7 @@ export const teamMembers = [
   },
   {
     name: "Jerry Qiu",
-    handle: "@Jerry",
+    handle: "Jerry",
     role: "Developer",
     university: "Western University",
     program: "BMOS & Ivey AEO",
