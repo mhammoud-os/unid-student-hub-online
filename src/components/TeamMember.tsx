@@ -62,7 +62,6 @@ const TeamMember = ({
             {isFocused && (
               <div className="w-full space-y-4 mt-3 px-2 flex flex-col items-center">
                 <div className="space-y-1 text-center w-full">
-                  <p className="text-gray-400 text-sm">{handle}</p>
                   {role && <p className="text-gold/80 font-medium">{role}</p>}
                   <p className="text-gray-300">{university}</p>
                   <p className="text-gray-300">{program}</p>
